@@ -26,6 +26,8 @@ app.listen(PORT, () => {
 
 app.use('/', (req, res) => {
   fs.writeFileSync('output/obfuscated.html', obfuscate('input/index.html', { type: "file" }))
+
+  // res.send(obfuscate('input/index.html', { type: "file" }))
   res.render('index', {})
 })
 
