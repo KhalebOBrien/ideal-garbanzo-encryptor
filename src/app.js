@@ -6,7 +6,7 @@ const dotenv = require('dotenv')
 const path = require('path')
 
 dotenv.config()
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3800
 
 const app = express()
 
@@ -25,9 +25,8 @@ app.listen(PORT, () => {
 })
 
 app.use('/', (req, res) => {
-  fs.writeFileSync('output/obfuscated.html', obfuscate('input/index.html', { type: "file" }))
+  fs.writeFileSync('output/obfuscated.html', obfuscate('input/file.html', { type: "file" }))
 
-  // res.send(obfuscate('input/index.html', { type: "file" }))
   res.render('index', {})
 })
 
