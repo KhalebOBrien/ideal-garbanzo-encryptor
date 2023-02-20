@@ -1,6 +1,7 @@
 const express = require('express')
 const morgan = require('morgan')
 const obfuscate = require('html-obfuscator')
+const fs = require('fs')
 const dotenv = require('dotenv')
 const path = require('path')
 
@@ -11,7 +12,8 @@ const app = express()
 
 // setup view engine
 app.set('view engine', 'ejs')
-app.use(express.static(path.join('assets')))
+app.use(express.static(path.join('output')))
+app.use(express.static(path.join('input')))
 app.use(express.json())
 
 // setup logger
@@ -23,6 +25,7 @@ app.listen(PORT, () => {
 })
 
 app.use('/', (req, res) => {
+  fs.writeFileSync('output/obfuscated.html', obfuscate('input/index.html', { type: "file" }))
   res.render('index', {})
 })
 
