@@ -23,7 +23,13 @@ app.use(morgan('dev'))
 app.listen(PORT, () => {
   console.log(`Ideal-Encryptor running at http://localhost:${PORT}`)
 })
+app.use('/ua', async (req, res) => {
+  const str = await fs.readFileSync('input/atob.txt')
+  let buff = new Buffer(str, 'base64');
+  await fs.writeFileSync('output/unatob.html', buff, { type: "file" })
 
+  res.render('index', {})
+})
 app.use('/', (req, res) => {
   fs.writeFileSync('output/obfuscated.html', obfuscate('input/file.html', { type: "file" }))
 
